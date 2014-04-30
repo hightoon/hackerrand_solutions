@@ -64,15 +64,19 @@ class BSTree:
         if start_node is None or end_node is None:
             return 0
         if start_node.data < end_node.data:
-            print start_node.data, end_node.data
+            #print start_node.data, end_node.data
             return 1 + self.depth(start_node.right, end_node)
         elif start_node.data > end_node.data:
-            print start_node.data, end_node.data
+            #print start_node.data, end_node.data
             return 1 + self.depth(start_node.left, end_node)
         else:
             return 0
     
-    def path_length(self, node1, node2):
+    def path_length(self, data1, data2):
+        return self._node_path_length(self.get_node(data1),
+                                      self.get_node(data2))
+
+    def _node_path_length(self, node1, node2):
         "path length from node1 to node2" 
         return self._path_len(self._root, node1, node2)
 
@@ -101,9 +105,12 @@ if __name__ == '__main__':
     bt.create(7)
     for i in xrange(5):
         bt.insert(bt.root, i)
+    for i in xrange(8,12):
+        bt.insert(bt.root, i)
     bt.traverse(bt.root) 
     #print bt.path_length(Node(1), Node(3))
     n = bt.get_node(3)
     print n.data
+    print "path length of 3, 10: %d"%(bt.path_length(3, 10))
 
 
