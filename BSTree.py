@@ -34,19 +34,25 @@ class BSTree:
         else:
             return self._get_node(node.right, data) 
 
-    def insert(self, node, data):
+    def insert(self, data):
+        if self._root is None:
+            self._root = Node(data)
+        else:
+            self._insert(self._root, data)
+
+    def _insert(self, node, data):
         if node is None:
             return
         if data < node.data:
             if node.left is None:
                 node.left = Node(data)
             else:
-                self.insert(node.left, data)
+                self._insert(node.left, data)
         else:
             if node.right is None:
                 node.right = Node(data)
             else:
-                self.insert(node.right, data)
+                self._insert(node.right, data)
 
     def create(self, data):
         "create tree by insert root node"
@@ -56,9 +62,11 @@ class BSTree:
         if node is None:
             return
         else:
+            print node.data
             self.traverse(node.left)
-            print node.data 
+            #print node.data 
             self.traverse(node.right)
+            #print node.data
 
     def depth(self, start_node, end_node):
         if start_node is None or end_node is None:
@@ -102,15 +110,21 @@ class BSTree:
 
 if __name__ == '__main__':
     bt = BSTree()
-    bt.create(7)
-    for i in xrange(5):
-        bt.insert(bt.root, i)
-    for i in xrange(8,12):
-        bt.insert(bt.root, i)
-    bt.traverse(bt.root) 
+    #bt.create(7)
+    #for i in xrange(5):
+    #    bt.insert(bt.root, i)
+    #for i in xrange(8,12):
+    #    bt.insert(bt.root, i)
+    #bt.traverse(bt.root) 
     #print bt.path_length(Node(1), Node(3))
-    n = bt.get_node(3)
-    print n.data
-    print "path length of 3, 10: %d"%(bt.path_length(3, 10))
+    #n = bt.get_node(3)
+    #print n.data
+    #print "path length of 3, 10: %d"%(bt.path_length(3, 10))
+    num_of_nodes = int(raw_input('').strip())
+    data = [int(x) for x in raw_input('').strip().split()]
+    for d in data:
+        bt.insert(d)
+    bt.traverse(bt.root)
+ 
 
 
