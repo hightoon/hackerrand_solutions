@@ -25,7 +25,7 @@ sierpinski :: Point -> Point -> Point -> Int -> [Point]
 sierpinski (Point x1 y1) (Point x2 y2) (Point x3 y3) 0 =
     fillTriangles (Point x1 y1) (Point x2 y2) (Point x3 y3) 
 sierpinski (Point x1 y1) (Point x2 y2) (Point x3 y3) degree =
-       sierpinski (Point x1 y1) (midP12 `addPoints` Point (-1) 1) (midP13 `addPoints` Point (-1) (-1)) (degree-1)
+       sierpinski (Point x1 y1) (midP12 `addPoints` Point 0 (1)) (midP13 `addPoints` Point 0 0) (degree-1)
     ++ sierpinski (midP12 `addPoints` Point 1 0) (Point x2 y2) (midP23 `addPoints` Point 0 (-1)) (degree-1)
     ++ sierpinski (midP13 `addPoints` Point 1 1) (midP23 `addPoints` Point 0 1) (Point x3 y3) (degree-1) 
     where midP12 = getMid (Point x1 y1) (Point x2 y2)
@@ -35,7 +35,7 @@ sierpinski (Point x1 y1) (Point x2 y2) (Point x3 y3) degree =
 drawPoint :: [Point] -> Point -> Char
 drawPoint ps (Point x y) 
     | (Point x y) `elem` ps = '1'
-    | otherwise          = '_' 
+    | otherwise             = '_' 
     
 
 genLine :: [Point] -> Int -> String
